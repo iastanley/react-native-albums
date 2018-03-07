@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Platform } from 'react-native';
+import { View, Text, Platform, StyleSheet } from 'react-native';
+import {HEADER_LIGHT_GRAY} from '../styleConstants';
 
 const Header = ({ headerText }) => {
   const { viewStyle, textStyle } = styles;
@@ -12,9 +13,9 @@ const Header = ({ headerText }) => {
 };
 
 // all styles go in this styles object
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: HEADER_LIGHT_GRAY,
     justifyContent: 'center',
     alignItems: 'center',
     height: 60, //what are the units here - pixels?!
@@ -37,7 +38,7 @@ const styles = {
   textStyle: {
     fontSize: 20
   }
-};
+});
 
 export default Header;
 

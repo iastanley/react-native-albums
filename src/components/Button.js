@@ -1,33 +1,50 @@
 import React from 'react';
-import { Text, TouchableOpacity, Platform } from 'react-native';
+import { Text, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 
-const Button = ({onPress, children}) => {
+const Button = ({onPress, btnColor, children}) => {
   const { buttonStyle, buttonTextStyle } = styles
+
+  const buttonStyles = [buttonStyle];
+  const buttonTextStyles = [buttonTextStyle];
+
+  if (btnColor) {
+    const customColorStyle = Platform.OS === 'ios' ?
+      {
+        borderColor: btnColor
+      } : {
+        backgroundColor: btnColor
+      }
+    buttonStyles.push(customColorStyle);
+    if (Platform.OS === 'ios') {
+      const customTextColor = Platform.OS === 'ios' && { color: btnColor };
+      buttonTextStyles.push(customTextColor);
+    }
+  }
 
   return (
     <TouchableOpacity
       onPress={onPress} 
-      style={buttonStyle}>
-      <Text style={buttonTextStyle}>{children}</Text>
+      style={buttonStyles}>
+      <Text style={buttonTextStyles}>{children}</Text>
     </TouchableOpacity>
   );
 }
-const btnColor = "#007aff" // how do i make this configurable with props?!
-const styles = {
+const defaultColor = "#00f" // how do i make this configurable with props?!
+const styles = StyleSheet.create({
   buttonStyle: {
     flex: 1,
     alignSelf: 'stretch',
     ...Platform.select({
       ios: {
         backgroundColor: '#fff',
-        borderColor: btnColor,
+        borderColor: defaultColor,
         borderRadius: 5,
         borderWidth: 1,
         marginLeft: 5,
         marginRight: 5
       },
       android: {
-        backgroundColor: btnColor,
+        backgroundColor: defaultColor,
       }
     })
   },
@@ -39,13 +56,13 @@ const styles = {
     fontWeight: '600',
     ...Platform.select({
       ios: {
-        color: btnColor
+        color: defaultColor
       },
       android: {
         color: '#fff'
       }
     })
   }
-}
+});
 
 export default Button;

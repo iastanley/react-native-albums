@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Image, Linking } from 'react-native';
+import { View, Text, Image, Linking, StyleSheet } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
+import { BUTTON_COLOR } from '../styleConstants';
 
 const AlbumDetail = ({ album }) => {
   const { title, artist, thumbnail_image, image, url } = album;
@@ -35,7 +36,9 @@ const AlbumDetail = ({ album }) => {
         />
       </CardSection>
       <CardSection>
-        <Button onPress={() => Linking.openURL(url)}>
+        <Button 
+          btnColor={BUTTON_COLOR}
+          onPress={() => Linking.openURL(url)}>
           Buy Now
         </Button>
       </CardSection>
@@ -43,7 +46,7 @@ const AlbumDetail = ({ album }) => {
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   headerTextStyle: {
     flexDirection: 'column',
     justifyContent: 'space-around'
@@ -66,6 +69,6 @@ const styles = {
     flex: 1,
     width: null
   }
-}
+});
 
 export default AlbumDetail;
